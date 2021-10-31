@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import path, { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url';
+import path from 'path';
 import { dirname } from 'path';
 import authRoutes from './routes/auth.js';
 import { User } from './models/user.js';
