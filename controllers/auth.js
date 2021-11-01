@@ -20,14 +20,4 @@ const postSignup = async (req, res) => {
   }
 };
 
-const getTempPassword = (req, res, next) =>
-{
-  res.render('auth/temp-password');
-};
-
-const getResetPassword = (req, res, next) =>
-{
-  res.render('auth/reset-password');
-}
-
-export { getSignup, postSignup, getTempPassword, getResetPassword };
+export { getSignup, postSignup };
