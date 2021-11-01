@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
-
 import { config } from 'dotenv';
 
 config();
