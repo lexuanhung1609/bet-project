@@ -20,4 +20,8 @@ const postSignup = async (req, res) => {
   }
 };
 
-export { getSignup, postSignup };
+const getLogin = (req,res) =>{
+  res.render('auth/login')
+}
+
+export { getSignup, postSignup,getLogin };

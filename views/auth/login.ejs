@@ -1,0 +1,34 @@
+<%- include('../layouts/header.ejs'); %>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+
+<div class="main_page_login">
+  <div class="login_block">
+    <div class="login_block_text">
+      Login
+    </div>
+    <div class="login_block_input">
+      <form action="/login" method="get">
+        <div class="username_input">
+          
+            <image class="icon" src="/image/user_icon.png">
+            <input placeholder="Username" class="input_box" type="text" name="username" required />
+          
+        </div>
+        <div class="password_input">
+          
+            <image class="icon" src="/image/password_icon.jpg"></image>
+            <input placeholder="Password" class="input_box" type="password" name="password" required />
+          
+        </div>
+      </form>
+    </div>
+    <a class="forgot_password_link">Forgot Password?</a>
+    <button class="login_button" type="button" >Login</button>
+    <div class="line"></div>
+    <div class="register_block">
+        <div class="register_block_text">Don't have any account?</div>
+        <button class="register_block_button">Register</button>
+    </div>
+  </div>
+</div>
+<%- include('../layouts/footer.ejs') %>

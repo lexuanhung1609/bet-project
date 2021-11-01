@@ -5,6 +5,12 @@ import { User } from './models/user.js';
 
 import { config } from 'dotenv';
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 config();
 
 const PORT = process.env.PORT;
@@ -14,6 +20,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+app.use(express.static(__dirname + '/assests'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
