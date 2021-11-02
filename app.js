@@ -1,8 +1,7 @@
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { dirname } from 'path';
 import authRoutes from './routes/auth.js';
 import { User } from './models/user.js';
 import { config } from 'dotenv';
