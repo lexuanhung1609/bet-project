@@ -10,12 +10,6 @@ const postSignup = async (req, res) => {
   let { confirmPassword, ...data } = reqData;
   const user = { ...data, role: ['USER'] };
   const result = await User.create(user);
-  User.create(user)
-    .then((result) => {
-      return;
-    })
-    .catch({});
-  console.log(result);
   if (result) {
     res.redirect('/');
   }
