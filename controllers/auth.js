@@ -20,8 +20,12 @@ const postSignup = async (req, res) => {
   }
 };
 
+const getLogin = (req, res) => {
+  res.render('auth/login')
+}
+
 const getForgotPassword = (req, res) => {
   res.render('auth/forgot-password')
 }
 
-export { getSignup, postSignup, getForgotPassword };
+export { getSignup, postSignup, getLogin, getForgotPassword };
