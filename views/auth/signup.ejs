@@ -2,48 +2,28 @@
 </head>
 <body>
 <div>
-    <form action="/signup" method="post">
+    <form action="/signup" method="post" class="box">
+        <p>Signup</p>
         <div>
-            <label for="fullName">
-                Full Name:
-                <input type="text" name="fullName" required>
-            </label>
+            <input type="text" name="fullName" required placeholder="Your fullname" class="input-line">
         </div>
         <div>
-            <label for="username">
-                Username:
-                <input type="text" name="username" required>
-            </label>
+            <input type="text" name="username" required placeholder="Username" class="input-line">
         </div>
         <div>
-            <label for="password">
-                Password:
-                <input type="password" name="password" required>
-            </label>
+            <input type="password" name="password" required placeholder="Password">
         </div>
         <div>
-            <label for="confirmPassword">
-                Confirm Password:
-                <input type="password" name="confirmPassword" required>
-            </label>
+            <input type="password" name="confirmPassword" required placeholder="Confirm Password">
         </div>
         <div>
-            <label for="email">
-                Email:
-                <input type="text" name="email">
-            </label>
+            <input type="text" name="email" placeholder="Email">
         </div>
         <div>
-            <label for="phone">
-                Phone:
-                <input type="text" name="phone">
-            </label>
+            <input type="text" name="phone" placeholder="Phone number">
         </div>
         <div>
-            <label for="dob">
-                Dob:
-                <input type="date" name="dob">
-            </label>
+            <input type="date" name="dob" placeholder="Date of birth">
         </div>
         <button type='submit'>Sign up</button>
     </form>
