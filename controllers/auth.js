@@ -1,5 +1,5 @@
 import { User } from '../models/user.js';
-
+import {randomPassword} from '../utils/password.js'
 const getSignup = (req, res) => {
   res.render('auth/signup');
 };
@@ -22,7 +22,9 @@ const postSignup = async (req, res) => {
 
 const getTempPassword = (req, res, next) =>
 {
-  res.render('auth/temp-password');
+  res.render('auth/temp-password',{
+    randomPassword: randomPassword()
+  });
 };
 
 const getResetPassword = (req, res, next) =>
