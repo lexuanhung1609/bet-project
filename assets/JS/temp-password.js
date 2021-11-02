@@ -1,9 +1,9 @@
 
-var counter = 0;
+let counter = 0;
 function randomPassword(){
-    var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*_+-?";
-    var passwordLength = 14;
-    var password = "";
+    let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*_+-?";
+    let passwordLength = 14;
+    let password = "";
     
     if (counter < 1)
     {
