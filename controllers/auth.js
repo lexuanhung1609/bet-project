@@ -1,23 +1,39 @@
 import { User } from '../models/user.js';
-import {randomPassword} from '../utils/password.js'
+import { randomPassword } from '../utils/password.js';
 
 const getSignup = (req, res) => {
-  res.render('auth/signup');
+  res.render('auth/signup', { message: null });
 };
 
 const postSignup = async (req, res) => {
   const reqData = req.body;
+  const password = req.body.password;
+  const confirmPwd = req.body.confirmPassword;
+  const email = req.body.email;
+  const username = req.body.username;
+
+  if (password != confirmPwd) {
+    return res.render('auth/signup', {
+      message: 'Your password and confirm password did not match',
+    });
+  }
+
+  const emailExists = await User.exists({ email: email });
+  if (emailExists) {
+    return res.render('auth/signup', { message: 'email already existed' });
+  }
+
   let { confirmPassword, ...data } = reqData;
   const user = { ...data, role: ['USER'] };
   const result = await User.create(user);
   if (result) {
-    res.redirect('/');
+    res.redirect('/login');
   }
 };
 
 const getLogin = (req, res) => {
-  res.render('auth/login', {message: null})
-}
+  res.render('auth/login');
+};
 
 const postLogin = (req, res, next) => {
   const email = req.body.email;
@@ -26,51 +42,55 @@ const postLogin = (req, res, next) => {
   if (!email || !password) {
     return res.render('auth/login', {
       message: 'Please fill the required field',
-    })
+    });
   }
 
-  let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!re.test(email)) {
     return res.render('auth/login', {
-      message: "Invalid email",
-    })
+      message: 'Invalid email',
+    });
   }
 
-  User.findOne({email: email}).lean().exec((err, doc) => {
-    if (!doc) {
-      res.render('auth/login', {
-        message: "Your email doesn't exist!",
-      })
-    }
-    else if (doc.password != password)
-    {
-      res.render('auth/login', {
-        message: "Incorrect password",
-      })
-    }
-    else {
-      res.redirect('/')
-    }
-  })
-
-}
+  User.findOne({ email: email })
+    .lean()
+    .exec((err, doc) => {
+      if (!doc) {
+        res.render('auth/login', {
+          message: "Your email doesn't exist!",
+        });
+      } else if (doc.password != password) {
+        res.render('auth/login', {
+          message: 'Incorrect password',
+        });
+      } else {
+        res.redirect('/');
+      }
+    });
+};
 
 const getForgotPassword = (req, res) => {
-  res.render('auth/forgot-password')
-}
-
-const getTempPassword = (req, res, next) =>
-{
- res.render('auth/temp-password',{
-   randomPassword: randomPassword()
- });
+  res.render('auth/forgot-password');
 };
- 
-const getResetPassword = (req, res, next) =>
-{
- res.render('auth/reset-password');
-}
- 
-export { getSignup, postSignup, getLogin, postLogin, getForgotPassword, getTempPassword, getResetPassword };
 
+const getTempPassword = (req, res, next) => {
+  res.render('auth/temp-password', {
+    randomPassword: randomPassword(),
+  });
+};
+
+const getResetPassword = (req, res, next) => {
+  res.render('auth/reset-password');
+};
+
+export {
+  getSignup,
+  postSignup,
+  getLogin,
+  postLogin,
+  getForgotPassword,
+  getTempPassword,
+  getResetPassword,
+};

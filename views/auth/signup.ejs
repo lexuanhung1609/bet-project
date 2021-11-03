@@ -25,6 +25,9 @@
         <div>
             <input type="date" name="dob" placeholder="Date of birth">
         </div>
+        <% if(message != null){ %>
+            <p class="message"><%= message %></p>
+        <% } %>
         <button type='submit'>Sign up</button>
     </form>
 </div>
