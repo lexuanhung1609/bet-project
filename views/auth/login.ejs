@@ -7,6 +7,9 @@
             <input type="text" placeholder="&#xF0E0;   Email" name="email" class="authInput">
             <label>Password</label>
             <input type="password" placeholder="&#xf084;   Password" name="password" class="authInput">
+            <% if(message != null){ %>
+                <p class="message"><%= message %></p>
+            <% } %>
             <div class="authBtn">
                 <button type="submit">Log In</button>
             </div>
