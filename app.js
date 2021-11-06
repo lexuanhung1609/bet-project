@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
+import adminRoutes from './routes/admin.js'
 
 import { config } from 'dotenv';
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'assets')));
 
 app.use(authRoutes);
+app.use('/admin' ,adminRoutes);
 
 app.get('/', async (req, res) => {
   res.render('index');

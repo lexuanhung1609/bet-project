@@ -83,6 +83,10 @@ const getResetPassword = (req, res, next) => {
   res.render('auth/reset-password');
 };
 
+const getAdminIndex = (req, res, next) => {
+  res.render('auth/admin');
+};
+
 export {
   getSignup,
   postSignup,
@@ -91,4 +95,5 @@ export {
   getForgotPassword,
   getTempPassword,
   getResetPassword,
+  getAdminIndex,
 };

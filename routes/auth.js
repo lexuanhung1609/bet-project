@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { getSignup, postSignup, getLogin, postLogin, getForgotPassword, getTempPassword, getResetPassword } from '../controllers/auth.js';
+import { getSignup, postSignup, getLogin, postLogin, getForgotPassword, getTempPassword, getResetPassword, getAdminIndex } from '../controllers/auth.js';
 const router = express.Router();
 
 router.get('/signup', getSignup);
