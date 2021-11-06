@@ -32,10 +32,10 @@ const postSignup = async (req, res) => {
 };
 
 const getLogin = (req, res) => {
-  res.render('auth/login');
+  res.render('auth/login', { message: null });
 };
 
-const postLogin = (req, res, next) => {
+const postLogin = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
