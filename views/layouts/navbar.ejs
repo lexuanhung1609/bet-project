@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nav bar</title>
+    <link href="/CSS/header.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <span class="toggle-nav" id="toggle-nav">
+        <i class="material-icons">menu</i>
+      </span>
+      <!-- <div class=""> -->
+      <a href="#" class="logo"
+        ><img src="image/logo.jpg" alt="" />
+        <p>Bet Project</p>
+      </a>
+      <!-- </div> -->
+      <ul class="main-nav" id="main-nav">
+        <li><a href="#" class="nav-links">Sports</a></li>
+        <li><a href="#" class="nav-links">E-sports</a></li>
+        <li><a href="#" class="nav-links">Casino</a></li>
+        <li><a href="#" class="nav-links">Contact</a></li>
+        <li><a href="/login" class="nav-links">Sign in</a></li>
+      </ul>
+    </nav>
+    <script>
+      let mainNav = document.getElementById('main-nav');
+      let toggleNav = document.getElementById('toggle-nav');
+      toggleNav.addEventListener('click', function () {
+        mainNav.classList.toggle('active');
+      });
+    </script>
+  </body>
+</html>
