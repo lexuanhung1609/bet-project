@@ -1,7 +1,7 @@
 import express from 'express';
-import { createBet } from '../controllers/bet.js';
+import { createTeam } from '../controllers/team.js';
 const router = express.Router();
 
-router.post('/create', createBet);
+router.post('/create', createTeam);
 
 export default router;

@@ -14,7 +14,11 @@ const betSchema = new mongoose.Schema({
   time: Date,
   status: String,
   rate: Number,
-  winner: String,
+  winner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'team',
+    required: true,
+  },
 });
 
 export const Bet = mongoose.model('bet', betSchema);
