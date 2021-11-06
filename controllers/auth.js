@@ -1,5 +1,5 @@
 import { User } from '../models/user.js';
-import {randomPassword} from '../utils/password.js'
+import { randomPassword } from '../utils/password.js';
 
 const getSignup = (req, res) => {
   res.render('auth/signup');
@@ -26,51 +26,53 @@ const postLogin = (req, res, next) => {
   if (!email || !password) {
     return res.render('auth/login', {
       message: 'Please fill the required field',
-    })
+    });
   }
 
-  let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const emailRegex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  if (!re.test(email)) {
+  if (!emailRegex.test(email)) {
     return res.render('auth/login', {
-      message: "Invalid email",
-    })
+      message: 'Invalid email',
+    });
   }
 
-  User.findOne({email: email}).lean().exec((err, doc) => {
-    if (!doc) {
-      res.render('auth/login', {
-        message: "Your email doesn't exist!",
-      })
-    }
-    else if (doc.password != password)
-    {
-      res.render('auth/login', {
-        message: "Incorrect password",
-      })
-    }
-    else {
-      res.redirect('/')
-    }
-  })
+  const result = await User.findOne({ email: email });
 
-}
+  if (!result) {
+    return res.render('auth/login', {
+      message: "Your email doesn't exist!",
+    });
+  } else if (result.password != password) {
+    return res.render('auth/login', {
+      message: 'Incorrect password!',
+    });
+  } else {
+    return res.redirect('/');
+  }
+};
 
 const getForgotPassword = (req, res) => {
-  res.render('auth/forgot-password')
-}
-
-const getTempPassword = (req, res, next) =>
-{
- res.render('auth/temp-password',{
-   randomPassword: randomPassword()
- });
+  res.render('auth/forgot-password');
 };
- 
-const getResetPassword = (req, res, next) =>
-{
- res.render('auth/reset-password');
-}
- 
-export { getSignup, postSignup, getLogin, postLogin, getForgotPassword, getTempPassword, getResetPassword };
 
+const getTempPassword = (req, res, next) => {
+  res.render('auth/temp-password', {
+    randomPassword: randomPassword(),
+  });
+};
+
+const getResetPassword = (req, res, next) => {
+  res.render('auth/reset-password');
+};
+
+export {
+  getSignup,
+  postSignup,
+  getLogin,
+  postLogin,
+  getForgotPassword,
+  getTempPassword,
+  getResetPassword,
+};
