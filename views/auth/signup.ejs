@@ -2,30 +2,32 @@
 </head>
 <body>
 <div>
-    <form action="/signup" method="post" class="box">
-        <p>Signup</p>
+    <form action="/signup" method="post" class="signup-box">
+        <p class="signup-head">Signup</p>
         <div>
-            <input type="text" name="fullName" required placeholder="Your fullname" class="input-line">
+            <input type="text" name="fullName" required placeholder="Fullname" class="signup-input">
         </div>
         <div>
-            <input type="text" name="username" required placeholder="Username" class="input-line">
+            <input type="text" name="username" required placeholder="Username" class="signup-input">
         </div>
         <div>
-            <input type="password" name="password" required placeholder="Password">
+            <input type="password" name="password" required placeholder="Password" class="signup-input">
         </div>
         <div>
-            <input type="password" name="confirmPassword" required placeholder="Confirm Password">
+            <input type="password" name="confirmPassword" required placeholder="Confirm Password" class="signup-input">
         </div>
         <div>
-            <input type="text" name="email" placeholder="Email">
+            <input type="text" name="email" placeholder="Email" class="signup-input">
         </div>
         <div>
-            <input type="text" name="phone" placeholder="Phone number">
+            <input type="text" name="phone" placeholder="Phone number" class="signup-input">
         </div>
         <div>
-            <input type="date" name="dob" placeholder="Date of birth">
+            <input type="date" name="dob" placeholder="Date of birth" class="signup-input">
         </div>
-        <button type='submit'>Sign up</button>
+        <div class="authBtn">
+            <button type="submit">Sign up</button>
+        </div>
     </form>
 </div>
 <%- include('../layouts/footer.ejs') %>
