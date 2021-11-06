@@ -1,3 +1,4 @@
+import { render } from 'ejs';
 import { User } from '../models/user.js';
 import { randomPassword } from '../utils/password.js';
 
@@ -70,30 +71,80 @@ const postLogin = async (req, res, next) => {
 };
 
 const getForgotPassword = (req, res) => {
-  res.render('auth/forgot-password');
-};
+  res.render('auth/forgot-password', {
+    errorMessage: null
+  })
+}
+
+const postForgotPassword = async (req, res) => {
+  const reqData = req.body;
+  const reqEmail = reqData.email;
+
+  const profile = await User.findOne({ email: reqEmail });
+  if (profile === null) {
+    return res.render('auth/forgot-password', {
+      errorMessage: 'Your email does not exist!'
+    })
+  } else {
+    const passedEmail = encodeURIComponent(reqEmail);
+    res.redirect('temp-password?email=' + passedEmail);
+  }
+}
 
 const getTempPassword = (req, res, next) => {
+  const passedEmail = req.query.email;
   res.render('auth/temp-password', {
-    randomPassword: randomPassword(),
+    passedEmail: passedEmail.trim(),
+    randomPassword: randomPassword()
   });
 };
 
-const getResetPassword = (req, res, next) => {
-  res.render('auth/reset-password');
+const postTempPassword = async (req, res, next) => {
+  const tempPassword = req.body.tempPassword;
+  const passedEmail = req.body.email;
+
+
+  const profile = await User.findOne({ email: passedEmail.trim() });
+  const updatedPasswordProfile = await User.updateOne({ password: profile.password }, { $set: { password: tempPassword } });
+  return res.redirect('reset-password?email=' + passedEmail);
 };
+
+const getResetPassword = (req, res, next) => {
+  const passedEmail = req.query.email;
+  res.render('auth/reset-password', {
+    passedEmail: passedEmail.trim(),
+    errorMessage: null
+  });
+}
+
+const postResetPassword = async (req, res, next) => {
+  const passedEmail = req.body.email;
+  const profile = await User.findOne({ email: passedEmail.trim() });
+  const currentPassword = req.body.currentPwd;
+
+  if (profile.password != currentPassword) {
+    return res.render('auth/reset-password', {
+      passedEmail: passedEmail.trim(),
+      errorMessage: 'Your current password is incorrect!'
+    });
+  }
+
+  const newPassword = req.body.newPwd;
+  const confirmNewPassword = req.body.confirmNewPwd;
+
+  if (newPassword != confirmNewPassword) {
+    return res.render('auth/reset-password', {
+      passedEmail: passedEmail.trim(),
+      errorMessage: 'Your password(s) did not match!'
+    });
+  }
+
+  const updatedPasswordProfile = await User.updateOne({ password: currentPassword }, { $set: { password: newPassword } });
+  res.redirect('login');
+}
 
 const getAdminIndex = (req, res, next) => {
   res.render('auth/admin');
 };
 
-export {
-  getSignup,
-  postSignup,
-  getLogin,
-  postLogin,
-  getForgotPassword,
-  getTempPassword,
-  getResetPassword,
-  getAdminIndex,
-};
+export { getSignup, postSignup, postLogin, getLogin, getForgotPassword, getTempPassword, getResetPassword, postForgotPassword, postTempPassword, postResetPassword, getAdminIndex };
