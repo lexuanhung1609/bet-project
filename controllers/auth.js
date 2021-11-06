@@ -45,30 +45,28 @@ const postLogin = (req, res, next) => {
     });
   }
 
-  let re =
+  const emailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  if (!re.test(email)) {
+  if (!emailRegex.test(email)) {
     return res.render('auth/login', {
       message: 'Invalid email',
     });
   }
 
-  User.findOne({ email: email })
-    .lean()
-    .exec((err, doc) => {
-      if (!doc) {
-        res.render('auth/login', {
-          message: "Your email doesn't exist!",
-        });
-      } else if (doc.password != password) {
-        res.render('auth/login', {
-          message: 'Incorrect password',
-        });
-      } else {
-        res.redirect('/');
-      }
+  const result = await User.findOne({ email: email });
+
+  if (!result) {
+    return res.render('auth/login', {
+      message: "Your email doesn't exist!",
     });
+  } else if (result.password != password) {
+    return res.render('auth/login', {
+      message: 'Incorrect password!',
+    });
+  } else {
+    return res.redirect('/');
+  }
 };
 
 const getForgotPassword = (req, res) => {
