@@ -116,6 +116,11 @@ p
    content: "Copied";
 }
  
+.message {
+   font-style: italic;
+   color: #FF5151;
+   font-size: 14px;
+}
  
 .btn-container
 {
