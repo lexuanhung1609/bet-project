@@ -7,8 +7,8 @@ router.post('/signup', postSignup);
 
 router.get('/login', getLogin);
 router.post('/login', postLogin);
-router.get('/forgotpassword', getForgotPassword);
-router.post('/forgotpassword', postForgotPassword);
+router.get('/forgot-password', getForgotPassword);
+router.post('/forgot-password', postForgotPassword);
 
 router.get('/temp-password', getTempPassword);
 router.post('/temp-password', postTempPassword);
