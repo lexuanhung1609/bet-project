@@ -3,12 +3,13 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/admin.js'
+import adminRoutes from './routes/admin.js';
+import betRoutes from './routes/bet.js';
+import teamRoutes from './routes/team.js';
 
 import { config } from 'dotenv';
 
 config();
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,7 +27,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'assets')));
 
 app.use(authRoutes);
-app.use('/admin' ,adminRoutes);
+app.use('/admin', adminRoutes);
+app.use('/bet', betRoutes);
+app.use('/team', teamRoutes);
 
 app.get('/', async (req, res) => {
   res.render('index');
