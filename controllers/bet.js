@@ -15,9 +15,9 @@ const deleteBet = async (req, res, next) => {
     return res.json(response.NOT_FOUND([]));
   }
 
-  const existBet = await Bet.findOne({ _id: id });
+  const existedBet = await Bet.findOne({ _id: id });
 
-  if (!existBet) {
+  if (!existedBet) {
     return res.json(response.NOT_FOUND([]));
   }
 
