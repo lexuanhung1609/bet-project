@@ -3,9 +3,17 @@ import { OK, NOT_FOUND, FAIL } from '../shared/response.js';
 
 const createBet = async (req, res, next) => {
   const bodyData = req.body;
-  const bet = bodyData;
-  const result = await Bet.create(bet);
-  res.json(result);
+  let { team1, team2, time, rate } = bodyData;
+  if (team1 !== '' && team2 !== '' && time !== '' && rate !== '') {
+    const bet = new Bet(bodyData);
+    try {
+      const result = await Bet.create(bet);
+      return res.json(OK([existedBet]));
+    } catch (e) {
+      return res.json(FAIL([]));
+    }
+  }
+  return res.json(NOT_FOUND([]));
 };
 
 const deleteBet = async (req, res, next) => {
@@ -23,7 +31,7 @@ const deleteBet = async (req, res, next) => {
 
   try {
     const result = await Bet.deleteOne({ _id: id });
-    return res.json(OK([existBet]));
+    return res.json(OK([existedBet]));
   } catch (error) {
     return res.json(FAIL([]));
   }
@@ -44,3 +52,9 @@ const updateBet = async (req, res, next) => {
 }
 
 export { createBet, deleteBet, updateBet };
+const getSingleBet = async (req, res, next) => {
+  const bet = await Bet.findById(req.params);
+  res.json(bet);
+};
+
+export { createBet, getSingleBet, deleteBet };

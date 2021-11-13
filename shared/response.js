@@ -22,10 +22,5 @@ const NOT_FOUND = () => {
 const FAIL = () => {
   return new Response(false, 500, 'Fail', []);
 };
-<<<<<<< HEAD
-
-const a = new Response()
-=======
->>>>>>> a27c9d412b6d6827ece6f58095b5b0d786ffeea2
 
 export { OK, NOT_FOUND, FAIL };
