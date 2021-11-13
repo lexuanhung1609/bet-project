@@ -23,6 +23,4 @@ const FAIL = () => {
   return new Response(false, 500, 'Fail', []);
 };
 
-const a = new Response()
-
 export { OK, NOT_FOUND, FAIL };
