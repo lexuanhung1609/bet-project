@@ -8,9 +8,19 @@ const createBet = async (req, res, next) => {
 };
 
 const deleteBet = async (req, res, next) => {
-  const id = req.id;
-  const result = await Bet.deleteOne({ id: id });
-  res.json(result);
+  const id = req.body.id;
+  if (!id) {
+    return res.json('Please enter id');
+  }
+
+  try {
+    const result = await Bet.deleteOne({ _id: id });
+    return res.json(result);
+  } catch (error) {
+    res.json({
+      error,
+    });
+  }
 };
 
 export { createBet, deleteBet };
