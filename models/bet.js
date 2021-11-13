@@ -17,7 +17,7 @@ const betSchema = new mongoose.Schema({
   winner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'team',
-    required: true,
+    required: false,
   },
 });
 
