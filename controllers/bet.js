@@ -7,4 +7,10 @@ const createBet = async (req, res, next) => {
   res.json(result);
 };
 
-export { createBet };
+const deleteBet = async (req, res, next) => {
+  const id = req.id;
+  const result = await Bet.deleteOne({ id: id });
+  res.json(result);
+};
+
+export { createBet, deleteBet };
