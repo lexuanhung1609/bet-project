@@ -9,18 +9,20 @@ class Response {
     this.message = message;
     this.resources = resources;
   }
-
-  OK(resources, message = 'Successful') {
-    return new Response(true, 200, message, resources);
-  }
-
-  NOT_FOUND() {
-    return new Response(false, 404, 'Not Found', []);
-  }
-
-  FAIL() {
-    return new Response(false, 500, 'Fail', []);
-  }
 }
 
-export default Response;
+const OK = (resources, message = 'Successful') => {
+  return new Response(true, 200, message, resources);
+};
+
+const NOT_FOUND = () => {
+  return new Response(false, 404, 'Not Found', []);
+};
+
+const FAIL = () => {
+  return new Response(false, 500, 'Fail', []);
+};
+
+const a = new Response()
+
+export { OK, NOT_FOUND, FAIL };
