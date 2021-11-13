@@ -41,6 +41,7 @@ const postLogin = async (req, res, next) => {
   const password = req.body.password;
 
   if (!email || !password) {
+
     return res.render('auth/login', {
       message: 'Please fill the required field',
     });
@@ -50,6 +51,9 @@ const postLogin = async (req, res, next) => {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!emailRegex.test(email)) {
+    res.json({
+      message: 'Invalid email'
+    })
     return res.render('auth/login', {
       message: 'Invalid email',
     });
@@ -58,16 +62,29 @@ const postLogin = async (req, res, next) => {
   const result = await User.findOne({ email: email });
 
   if (!result) {
+    res.json({
+      message: 'Your email doesn\'t exist!'
+    })
     return res.render('auth/login', {
       message: "Your email doesn't exist!",
     });
-  } else if (result.password != password) {
+  }
+
+  if (result.password !== password) {
+    res.json({
+      message: 'Incorrect password!'
+    })
     return res.render('auth/login', {
       message: 'Incorrect password!',
     });
-  } else {
-    return res.redirect('/');
   }
+
+  if (result.role === 'ADMIN') {
+    return res.redirect('/admin')
+  }
+  
+  return res.redirect('/');
+
 };
 
 const getForgotPassword = (req, res) => {
