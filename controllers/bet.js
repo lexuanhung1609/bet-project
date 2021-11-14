@@ -29,4 +29,18 @@ const deleteBet = async (req, res, next) => {
   }
 };
 
-export { createBet, deleteBet };
+const updateBet = async (req, res, next) => {
+  const bodyData = req.body;
+  const betNew = bodyData;
+  const betID = betNew._id;
+
+  const findBet = { _id: betID };
+  const newValues = { team1: betNew.team1, team2: betNew.team2, time: betNew.time, status: betNew.status, rate: betNew.rate, winner: betNew.winner };
+  const updateBet = await Bet.updateOne(findBet, newValues);
+
+  const updatedBet = await Bet.findOne({ _id: betID });
+
+  return res.json(OK([updatedBet]));
+}
+
+export { createBet, deleteBet, updateBet };
