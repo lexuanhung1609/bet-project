@@ -43,18 +43,35 @@ const updateBet = async (req, res, next) => {
   const betID = betNew._id;
 
   const findBet = { _id: betID };
-  const newValues = { team1: betNew.team1, team2: betNew.team2, time: betNew.time, status: betNew.status, rate: betNew.rate, winner: betNew.winner };
+  const newValues = {
+    team1: betNew.team1,
+    team2: betNew.team2,
+    time: betNew.time,
+    status: betNew.status,
+    rate: betNew.rate,
+    winner: betNew.winner,
+  };
   const updateBet = await Bet.updateOne(findBet, newValues);
 
   const updatedBet = await Bet.findOne({ _id: betID });
 
   return res.json(OK([updatedBet]));
-}
+};
 
-export { createBet, deleteBet, updateBet };
+const getListBet = async (req, res, next) => {
+  const bodyData = req.body;
+  try {
+    const allBet = await Bet.find();
+    return res.json(OK([allBet]));
+  } catch (error) {
+    return res.json(FAIL());
+  }
+};
+
 const getSingleBet = async (req, res, next) => {
   const bet = await Bet.findById(req.params);
   res.json(bet);
 };
 
-export { createBet, getSingleBet, deleteBet };
+export { createBet, deleteBet, updateBet, getListBet, getSingleBet };
+
