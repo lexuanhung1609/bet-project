@@ -1,0 +1,28 @@
+<%- include('../layouts/header.ejs') %>
+<%-include('../layouts/navbar.ejs')%>
+
+<body>
+    <div class="bet-list">
+        <% for (const key in allMatch) {
+            if (Object.hasOwnProperty.call(allMatch, key)) {
+                const element = allMatch[key];
+                 %>
+            <a class="row bet" href="/bet/<%=element._id%>">
+            <div class="col-4 bet-team">
+                <img src="<%= element.team1.imgUrl %> " alt="team1_image" style="width:48px; height:50px">
+                <p class="name"><%= element["team1"].name %> </p>
+            </div>
+            <div class="col-4 bet-team">
+                <p class="status"><%= element.status %> </p>
+            </div>
+            <div class="col-4 bet-team">
+                <img src="<%= element.team2.imgUrl %> " alt="team2_image" style="width:48px; height:50px">
+                <p class="name"><%= element["team2"].name %> </p>
+            </div>
+            </a>
+            <br>
+        <% } %>
+        <% };%>
+
+    </div>
+</body>
