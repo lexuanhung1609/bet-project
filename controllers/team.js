@@ -9,7 +9,7 @@ const createTeam = async (req, res, next) => {
     const team = new Team(bodyData);
     try {
       const result = await Team.create(team);
-      return res.json(OK([existedBet]));
+      return res.json(OK([team]));
     } catch (e) {
       return res.json(FAIL([]));
     }
