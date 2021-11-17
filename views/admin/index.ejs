@@ -1,0 +1,88 @@
+<%- include('../layouts/header.ejs') %>
+
+    <body class="admin-background">
+        <div class="container">
+            <div class="admin-header">
+                <h2>Bet List</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-10">
+                <a href="/bet/create" class="admin-add-btn">Add</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 main-table">
+                <table id="BetTable" class="table table-bordered border-dark table-sm">
+                    <thead>
+                        <tr class="admin-table-head">
+                            <th class="table-head">Team 1</th>
+                            <th class="table-head">Team 2</th>
+                            <th class="table-head">Time</th>
+                            <th class="table-head">Status</th>
+                            <th class="table-head">Rate</th>
+                            <th class="table-head">Winner</th>
+                            <th class="table-head">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="admin-table-body">
+                            <% allBet.forEach((bet, index) => { %>
+                             
+                            <tr>
+                                <td>
+                                    <%= teamInfo[index][0].name %>
+                                </td>
+                                <td>
+                                    <%= teamInfo[index][1].name %>
+                                </td>
+                                <td>
+                                    <%= bet.time.toString().slice(0,15) %>
+                                </td>
+                                <td>
+                                    <%= bet.status %>
+                                </td>
+                                <td>
+                                    <%= bet.rate %>
+                                </td>
+                                <%if (bet.winner) { %>
+                                    <td>
+                                        <% if (bet.team1.equals(bet.winner)) { %>
+                                            <%= teamInfo[index][0].name %>
+                                        <% } else { %>
+                                            <%= teamInfo[index][1].name %> 
+                                    </td>
+                                    <% } %>
+                                <% } else { %>
+                                    <td>
+                                    </td>
+                                <% } %>
+                                <td class="edit">
+                                    <a href="/bet/update" class="admin-button"><i
+                                            class="fas fa-pen admin-button-image"></i></a>
+                                    <a href="/bet/delete" class="admin-button"><i
+                                            class="fas fa-trash admin-button-image"></i></a>
+                                </td>
+                            </tr>
+
+                            <% }) %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </body>
+
+    <script>
+        $(document).ready(() => {
+            var t = $('#BetTable').DataTable({
+                lengthMenu: [
+                    [5, 10, 20, -1],
+                    ['5', '10', '20', 'Show all']
+                ],
+            });
+        })
+    </script>
